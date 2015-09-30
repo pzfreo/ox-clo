@@ -1,0 +1,47 @@
+1. log into amazon, start a server, run something.
+
+2. build a cloud deployment and zap into operation (AWS or docker?)
+
+3. Elasticly scale work using and elastic queue consumer model.
+
+3. install and run hadoop on Ubuntu with a python script
+3a. Or run hadoop from a pre-installed environment (EMR)
+
+4. write a python program to do something more serious (power data set)
+
+5. Spark cluster with Python
+5a. Spark cluster with Scala
+
+6. Spark with R
+
+7. Spark with realtime big data
+
+10. visualization (David)
+
+11. cloud security?
+
+12. monitoring?
+
+
+
+4 small labs a day, except on Friday (one lab) = 17 small labs (roughly 9 big ones split into decent parts)
+
+
+30 minute lecture + 15 mins discussion + 15 minutes coffee break + 45 mins lab + 15 recap = 2 hours
+
+9:15 - 11:15
+
+11:15 - 12:15 + 1:30 - 2:30
+
+2:30 - 4:30
+
+3 of these a day
+
+Stuff that needs a place in your labs
+
+Extreme scale (10000 containers). Cattle are not pets. 
+
+
+
+
+
