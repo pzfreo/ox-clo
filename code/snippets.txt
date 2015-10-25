@@ -1,0 +1,13 @@
+/usr/hduser/input/SF37.csv
+
+
+df = sqlContext.read().format('com.databricks.spark.csv').options(header='true',inferSchema='true').load('hdfs://localhost:54310/usr/hduser/input/SF37.CSV')
+
+
+
+df = sqlContext.read.format('com.databricks.spark.csv').options(header='true',inferschema='true').load('hdfs://localhost:54310/usr/hduser/input/*.csv')
+
+sqlContext.sql("SELECT Station_ID, AVG(Wind_Velocity_Mtr_Sec) AS AVERAGE FROM WIND GROUP BY Station_ID").show()
+
+sqlContext.sql("SELECT Station_ID, AVG(Wind_Velocity_Mtr_Sec) AS AVERAGE FROM WIND GROUP BY Station_ID ORDER BY Station_ID").show()
+
