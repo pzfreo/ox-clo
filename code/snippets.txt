@@ -11,3 +11,12 @@ sqlContext.sql("SELECT Station_ID, AVG(Wind_Velocity_Mtr_Sec) AS AVERAGE FROM WI
 
 sqlContext.sql("SELECT Station_ID, AVG(Wind_Velocity_Mtr_Sec) AS AVERAGE FROM WIND GROUP BY Station_ID ORDER BY Station_ID").show()
 
+
+bin/sparkR --packages==com.databricks:spark-csv_2.11:1.2.0
+
+df <- read.df(sqlContext, "hdfs://localhost:54310/usr/hduser/input/*.csv", source = "com.databricks.spark.csv", schema = customSchema, inferSchema = "true")
+
+
+ df <- read.df(sqlContext, "hdfs://localhost:54310/usr/hduser/input/*.csv", source = "com.databricks.spark.csv", header="true", inferSchema = "true")
+
+agg(group_by(Station_ID), sd = sd(df$Wind_Velocity_Mtr_Sec))
