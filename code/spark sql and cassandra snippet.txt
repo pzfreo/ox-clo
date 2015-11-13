@@ -1,0 +1,54 @@
+CREATE KEYSPACE wind WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'} ;
+
+CREATE TABLE wind.winddata (
+    stationid text,
+    time timestamp,
+    direction float,
+    temp float,
+    velocity float,
+    PRIMARY KEY (stationid, time)
+) ;
+
+
+
+==============
+
+bin/pyspark --packages TargetHolding:pyspark-cassandra:0.1.5,com.databricks:spark-csv_2.11:1.2.0
+
+
+from pyspark_cassandra import CassandraSparkContext
+from pyspark import SparkContext, SparkConf
+import time
+from datetime import datetime
+from pyspark.sql import SQLContext
+
+
+sc.stop()
+del sc
+
+
+conf = SparkConf() \
+    .setAppName("PySpark Cassandra Test") \
+    .setMaster("local") \
+    .set("spark.cassandra.connection.host", "127.0.0.1")
+
+sc = CassandraSparkContext(conf=conf)
+
+sqlContext = SQLContext(sc)
+
+df = sqlContext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load('hdfs://localhost:54310/user/oxclo/wind/*')
+
+
+convertTime = lambda t: datetime.fromtimestamp(time.mktime(time.strptime(t, "%Y-%m-%d? %H:%M"))) 
+
+toDict = lambda s: \
+dict(stationid=s.Station_ID, \
+time=convertTime(s.Interval_End_Time), \
+direction=s.Wind_Direction_Deg, \
+temp=s.Ambient_Temperature_Deg_C, \
+velocity=s.Wind_Velocity_Mtr_Sec)
+
+
+rdd2 = df.rdd.map(toDict)
+
+rdd2.saveToCassandra('wind', 'winddata')

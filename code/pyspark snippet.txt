@@ -1,0 +1,15 @@
+from pyspark.sql import SQLContext, Row
+sqlContext = SQLContext(sc)
+
+lines = sc.textFile("examples/src/main/resources/people.txt")
+parts = lines.map(lambda l: l.split(","))
+people = parts.map(lambda p: Row(name=p[0], age=int(p[1])))
+
+schemaPeople = sqlContext.createDataFrame(people)
+schemaPeople.registerTempTable("people")
+
+teenagers = sqlContext.sql("SELECT name FROM people WHERE age >= 13 AND age <= 19")
+
+teenNames = teenagers.map(lambda p: "Name: " + p.name)
+for teenName in teenNames.collect():
+  print(teenName)ˆ
