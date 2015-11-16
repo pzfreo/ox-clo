@@ -2,3 +2,11 @@ Access Key ID:
 AKIAIUF6KJHLPSS2JFUQ
 Secret Access Key:
 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
+
+
+
+oxclo01
+Access Key ID:
+AKIAI7XXQGQYBGINUD2A
+Secret Access Key:
+1ztP+E/tstq+Ui5g6sWky9VNnEZ9FhBtmY9cfkyN
