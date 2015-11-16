@@ -18,7 +18,8 @@ git clone https://github.com/pzfreo/auto-deploy-node-js.git
 cd auto-deploy-node-js
 # pass the DB connection parameters into the code
 export DBURL=oxclo-db-cluster.cluster-citfamc1edxs.eu-west-1.rds.amazonaws.com 
-export DBPW=furby123
+export DBUSER=node
+export DBPW=node
 # start the server as a daemon
 forever start --minUptime=1000 --spinSleepTime=1000 clustertest.js 
 #that's all
