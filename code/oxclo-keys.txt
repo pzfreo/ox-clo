@@ -10,3 +10,9 @@ Access Key ID:
 AKIAI7XXQGQYBGINUD2A
 Secret Access Key:
 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
+
+
+
+aws ec2 import-image --cli-input-json "{  \"Description\": \"Windows 2008 OVA\", \"DiskContainers\": [ { \"Description\": \"First CLI task\", \"UserBucket\": { \"S3Bucket\": \"my-import-bucket\", \"S3Key\" : \"my-windows-2008-vm.ova\" } } ]}"
+
+.local/lib/aws/bin/aws ec2 import-image --cli-input-json "{  \"Description\": \"OXCLO AMI\", \"DiskContainers\": [ { \"Description\": \"First CLI task\", \"UserBucket\": { \"S3Bucket\": \"oxclo\", \"S3Key\" : \"clo.ova\" } } ]}"
