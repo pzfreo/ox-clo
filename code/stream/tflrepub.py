@@ -1,12 +1,8 @@
 import time
-# import mosquitto
+import mosquitto
 import httplib2
 from urllib import urlencode
 import json
-
-lines = ["victoria","circle","district","northern","jubilee","piccadilly","metropolitan","bakerloo","central" ]
-# client = mosquitto.Mosquitto("client")
-# print client.connect("mqtt.freo.me")
 
 def call_get_arrivals(line):
 
@@ -26,18 +22,20 @@ def call_get_arrivals(line):
          timestamp = i['timestamp']
          ttl = i['timeToLive']
          data = dict(line=line, trainNumber = trainNumber, stationId = stationId, stationName=stationName, timestamp=timestamp, expArrival = expArrival, ttl = ttl)
-         print json.dumps(data)
-
        
    #     data = dict(temp=temp, humidity=humidity, pressure=pressure, windspeed=windspeed, winddirection=winddirection, country=country,city=city)
-#        print data
-#        print client.publish("/weather/"+country+"/"+city, json.dumps(data), 0)
+#         print data
+         client.publish("/tfl/", json.dumps(data), 0)
     except Exception as inst:
        pass
-#     
-#     client.loop()
+     
+    client.loop()
+
+lines = ["victoria","circle","district","northern","jubilee","piccadilly","metropolitan","bakerloo","central" ]
+client = mosquitto.Mosquitto("client")
+print client.connect("mqtt.freo.me")
 
 while 1==1:
-  for line in lines:
-    call_get_arrivals(line)
-    time.sleep(1)
+    for line in lines:
+      call_get_arrivals(line)
+      time.sleep(1)
