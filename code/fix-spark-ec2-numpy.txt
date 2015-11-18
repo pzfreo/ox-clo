@@ -1,0 +1,6 @@
+yum –y remove python26
+yum –y reinstall python27
+yum –y install python27-devel
+curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | sudo /usr/bin/python27
+sudo easy_install pip
+pip install numpy
