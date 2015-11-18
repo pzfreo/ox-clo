@@ -1,0 +1,20 @@
+import unicodedata
+
+def u2a(u): return str(unicodedata.normalize('NFKD',u).encode('ascii','ignore'))
+
+def strip(s): return ''.join(filter(str.isalpha, s))
+
+
+
+books = sc.textFile("hdfs://localhost:54310/user/oxclo/books/*")
+split = books.flatMap(lambda line: line.split())
+asc = split.map(u2a)
+stripped = asc.map(strip)
+lower = stripped.map(lambda a: a.lower())
+numbered = lower.map(lambda word: (word, 1))
+wordcount = numbered.reduceByKey(lambda a,b: a+b)
+
+for k,v in wordcount.collect():
+  print k,v
+  
+
