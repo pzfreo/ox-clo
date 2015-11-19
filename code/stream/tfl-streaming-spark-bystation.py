@@ -55,6 +55,7 @@ ssc.checkpoint(cpDir)
 
 lines = MQTTUtils.createStream(ssc, brokerUrl, listenTopic)
 windowed = lines.window(600,5) # look at the last 10 minutes worth with a sliding window of 5 seconds
+
 dicts = lines.map(lambda js: json.loads(js)) # convert from json into a Python dict
 mapped = dicts.map(lambda d: (d['trainNumber'],d)) # make the train number the key
 ds = mapped.updateStateByKey(update) # compare against previous data
@@ -64,7 +65,9 @@ info = ds.filter(lambda (r, d): bool(d)) # ignore if there is no previous data
 # so let's get rid of the redundancy
 unpack = info.map(lambda (r, d): (r, d[r]))
 # now let's swap this over so that the key is whether the train is delayed or not, and assign a count
-remap = unpack.map(lambda (r,d): ('delayed', 1) if d['delayed'] else ('ontime', 1))
+
+ontime = unpack.filter(lambda (r,d): not d['delayed'])
+remap = ontime.map(lambda (r,d): (d['stationId'],1))
 #now let's count the results with a reducer
 counts = remap.reduceByKey(lambda a,b: a+b)
 # and print the result to the console
