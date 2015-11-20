@@ -1,8 +1,11 @@
+from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 
 from dateutil.parser import parse
 from datetime import datetime
 
+conf = SparkConf().setAppName("wind-sfpd")
+sc = SparkContext(conf=conf)
 sqlc = SQLContext(sc)
 
 df = sqlc.read.format('com.databricks.spark.csv').\
