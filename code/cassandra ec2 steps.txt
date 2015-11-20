@@ -1,0 +1,26 @@
+1. launch t2.small with sg cass
+2. ssh
+3. 
+curl -L http://downloads.datastax.com/community/opscenter.tar.gz | tar xz
+cd opscenter-5.2.2/
+nano conf/opscenterd.conf 
+[authentication]
+enabled=True
+bin/opscenter 
+browse ip:8888 
+
+admin/admin
+create brand new cluster
+
+cluster name - oxcloXX-cluster
+provisioning type cloud
+package datastax community 2.1.11
+
+acc/secret
+
+Add DataCenter
+
+3 nodes
+m3.large
+unclick use opscetner sec group
+cassandra sec group
