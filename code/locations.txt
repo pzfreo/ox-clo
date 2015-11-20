@@ -1,0 +1,15 @@
+sudo pip install geoindex
+
+
+from geoindex import GeoGridIndex, GeoPoint
+
+d = dict()
+d['SF18'] = (37.7816834,-122.3887657)
+d['SF04']=(37.7469112,-122.4821759)
+d['SF15']=(37.7411022,-120.804151)
+d['SF17']=(37.4834543,-122.3187302)
+d['SF36']=(37.7576436,-122.3916382)
+d['SF37']=(37.7970013,-122.4140409)
+
+for i in d.keys():
+   geo_index.add_point(GeoPoint(d[i][0],d[i][1],i))
