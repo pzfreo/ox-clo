@@ -1,17 +1,18 @@
+from pyspark.sql import SQLContext
+
 from dateutil.parser import parse
 from datetime import datetime
 
-df = sqlContext.read.format('com.databricks.spark.csv').\
+sqlc = SQLContext(sc)
+
+df = sqlc.read.format('com.databricks.spark.csv').\
 options(header='true', inferschema='true').\
 load('/home/oxclo/datafiles/wind2014/*.csv')
 
 def date_and_hour(s):
-    date = parse(s.split('?')[0])
-    time = parse(s.replace('?',' '))
-    secs = (time - date).seconds
-    hour = secs/3600
-    return (date.strftime("%Y-%m-%d"), hour)
-
+    dt = parse(s.replace('?',' '))
+    hour = dt.hour
+    return (dt.strftime("%Y-%m-%d"), hour)
 
 tidied = df.rdd.map(lambda r: (r.Station_ID, date_and_hour(r.Interval_End_Time), \
 (r.Ambient_Temperature_Deg_C, r.Wind_Velocity_Mtr_Sec)))
