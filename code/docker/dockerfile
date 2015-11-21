@@ -1,5 +1,5 @@
 # start from existing ubuntu
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 # update the package list
 RUN apt-get update
 #upgrade

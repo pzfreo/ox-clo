@@ -1,0 +1,5 @@
+#!/bin/bash
+apt-get update
+apt-get upgrade -y
+apt-get install docker.io -y
+docker run -d -p 80:8080 pizak/nodeapp:1
