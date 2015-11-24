@@ -13,5 +13,5 @@ for line in sys.stdin:
       
       
       
-  except:
+  except ValueError:
     pass
