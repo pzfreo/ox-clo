@@ -40,7 +40,7 @@ options(header='true', inferschema='true').\
 load('/home/oxclo/datafiles/incidents/sfpd.csv.gz')
 
 
-fixed = df2.rdd.map(lambda r: (parse(r.Date), [r.Y,r.X]))
+fixed = df2.rdd.map(lambda r: (parse(r.Date+" "+r.Time), [r.Y,r.X]))
 
 only2014 = fixed.filter(lambda (d,l): d.year == 2014)
 
