@@ -12,7 +12,7 @@ sqlc = SQLContext(sc)
 
 df = sqlc.read.format('com.databricks.spark.csv').\
 options(header='true', inferschema='true').\
-load('/home/oxclo/datafiles/wind2014/*.csv')
+load('file:///home/oxclo/datafiles/wind2014/*.csv')
 
 def date_and_hour(s):
     dt = parse(s.replace('?',' '))
@@ -37,7 +37,7 @@ windaveraged = reduced.map(lambda ((s,d,h), (t,w,c)): ((s,d,h), (t/c, w/c)))
 
 df2 = sqlc.read.format('com.databricks.spark.csv').\
 options(header='true', inferschema='true').\
-load('/home/oxclo/datafiles/incidents/sfpd.csv.gz')
+load('file:///home/oxclo/datafiles/incidents/sfpd.csv.gz')
 
 
 fixed = df2.rdd.map(lambda r: (parse(r.Date+" "+r.Time), [r.Y,r.X]))

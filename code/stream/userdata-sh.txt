@@ -8,6 +8,6 @@ sudo easy_install pip
 sudo pip install mosquitto
 sudo apt-get install git -y
 sudo pip install httplib2
-git clone https://github.com/pzfreo/ox-clo.git
-cd ox-clo/code/stream
+git clone https://github.com/pzfreo/auto-deploy-node-js.git
+cd auto-deploy-node-js/tfl
 python tflrepub.py
