@@ -9,12 +9,15 @@ class FList(list):
     	return FList(filter(f, self))
     	
     def reduce(self, f):
-    	return FList(reduce(f, self))
+    	res = reduce(f, self)
+    	return FList(res) if hasattr(res, '__iter__') else res
     	
     def flatten(self):
-        return FList(reduce(lambda x,y: x+y,self))
+    	res = reduce(lambda x,y: x+y,self)
+    	return FList(res) if hasattr(res, '__iter__') else res
     	
     def flatMap(self, f):
-    	return FList(reduce(lambda x,y: x+y,(map(f, self))))
+    	res =reduce(lambda x,y: x+y,(map(f, self)))
+    	return FList(res) if hasattr(res, '__iter__') else res
     	
 
