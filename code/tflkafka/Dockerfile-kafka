@@ -1,0 +1,16 @@
+FROM alpine
+RUN apk --update add openjdk8 bash && \
+    cd /root && \
+	wget http://mirrors.ukfast.co.uk/sites/ftp.apache.org/kafka/0.10.0.1/kafka_2.11-0.10.0.1.tgz && \
+	tar xvfz kafka_2.11-0.10.0.1.tgz && \
+	mv kafka_2.11-0.10.0.1 kafka && \
+	rm kafka_2.11-0.10.0.1.tgz && \
+	sed -i 's|zookeeper.connect=localhost:2181|zookeeper.connect=zookeeper:2181|g' /root/kafka/config/server.properties && \
+	sed -i 's|#advertised.listeners=PLAINTEXT://your.host.name:9092|advertised.listeners=PLAINTEXT://kafka.freo.me:9092|g' /root/kafka/config/server.properties
+    
+WORKDIR /root/kafka/
+EXPOSE 9092
+
+CMD ["bin/kafka-server-start.sh", "config/server.properties"]
+
+

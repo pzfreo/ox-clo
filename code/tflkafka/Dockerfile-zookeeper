@@ -1,0 +1,23 @@
+FROM alpine
+
+
+RUN apk --update add openjdk8 bash && \
+    cd /root && \
+	wget -q http://www.mirrorservice.org/sites/ftp.apache.org/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz && \
+	tar zxvf zookeeper-3.4.9.tar.gz && \
+	rm zookeeper-3.4.9.tar.gz && \
+	mv zookeeper-3.4.9 zookeeper && \
+	mkdir -p /root/zookeeper/data && \
+	cp zookeeper/conf/zoo_sample.cfg zookeeper/conf/zoo.cfg && \
+    sed  -i "s|/tmp/zookeeper|/root/zookeeper/data|g" /root/zookeeper/conf/zoo.cfg && \
+    sed -i -r 's|#(log4j.appender.ROLLINGFILE.MaxBackupIndex.*)|\1|g' /root/zookeeper/conf/log4j.properties && \
+	sed -i -r 's|#autopurge|autopurge|g' /root/zookeeper/conf/zoo.cfg
+
+
+EXPOSE 2181
+
+WORKDIR /root/zookeeper/
+CMD ["bin/zkServer.sh", "start-foreground"]
+
+
+

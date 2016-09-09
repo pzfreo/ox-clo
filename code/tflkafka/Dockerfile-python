@@ -1,0 +1,12 @@
+FROM alpine
+RUN apk --update add python py-pip && \
+	pip install --upgrade pip && \
+	mkdir -p /home/root/python && \
+	pip install kafka && \
+	pip install httplib2 
+	
+ADD tflrepub.py /home/root/python/
+    
+WORKDIR /home/root/python/
+
+ENTRYPOINT python tflrepub.py
