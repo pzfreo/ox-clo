@@ -13,7 +13,7 @@ CREATE TABLE wind.winddata (
 
 ==============
 
-bin/pyspark --packages TargetHolding:pyspark-cassandra:0.1.5,com.databricks:spark-csv_2.11:1.2.0
+bin/pyspark --packages TargetHolding:pyspark-cassandra:0.3.5,com.databricks:spark-csv_2.11:1.5.0
 
 
 from pyspark_cassandra import CassandraSparkContext
