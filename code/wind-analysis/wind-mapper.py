@@ -9,7 +9,7 @@ for line in sys.stdin:
       stationid,name,location,interval,time,vel,direction_variance,wdd,temp,irradiance = unpacked
       vel = float(vel)
       
-      # add your code to output <K,V> her
+      # add your code to output <K,V> here
       
       
       
