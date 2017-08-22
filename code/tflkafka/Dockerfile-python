@@ -5,8 +5,11 @@ RUN apk --update add python py-pip && \
 	pip install kafka && \
 	pip install httplib2 
 	
-ADD tflrepub.py /home/root/python/
+COPY tflrepub.py /home/root/python/
     
 WORKDIR /home/root/python/
 
 ENTRYPOINT python tflrepub.py
+
+
+
