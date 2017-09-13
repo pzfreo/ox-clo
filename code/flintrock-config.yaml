@@ -22,7 +22,7 @@ providers:
 
 launch:
   num-slaves: 2
-  install-hdfs: True
+  install-hdfs: False
 
 
 
