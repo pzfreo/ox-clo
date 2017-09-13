@@ -2,7 +2,8 @@
 import sys
 
 speeds = dict()
-counts = dict()
+# for the extension we will need another dictionary
+# counts = dict()
 
 for line in sys.stdin:
     try:
@@ -17,5 +18,5 @@ for line in sys.stdin:
     except ValueError:
       pass
 
-for k, v in counts.iteritems():
+for k, v in speeds.iteritems():
 	# add code here to output the results

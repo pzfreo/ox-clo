@@ -16,12 +16,12 @@ def call_get_arrivals(line):
        for i in response:
          line = i['lineName']
          trainNumber = i['vehicleId']
-         stationId = i['destinationNaptanId']
-         stationName = i['destinationName']
+         stationId = i['naptanId']
+         stationName = i['stationName']
          expArrival = i['expectedArrival']
          timestamp = i['timestamp']
-         ttl = i['timeToLive']
-         data = dict(line=line, trainNumber = trainNumber, stationId = stationId, stationName=stationName, timestamp=timestamp, expArrival = expArrival, ttl = ttl)
+         tts = i['timeToStation']
+         data = dict(line=line, trainNumber = trainNumber, stationId = stationId, stationName=stationName, timestamp=timestamp, expArrival = expArrival, tts = tts)
          #print data
          producer.send("tfl", json.dumps(data))
     except Exception as inst:

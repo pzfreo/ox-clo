@@ -1,0 +1,15 @@
+eval $(docker-machine env oxclo01-cass-1)
+eval $(weave env)
+docker run -ti --rm jnummelin/weave-cassandra:3.0 /bin/bash
+
+
+CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'};  
+
+use test;
+
+create table kv ( key text, value text, primary key (key));
+
+insert into kv (key, value) values ('a','1');
+insert into kv (key, value) values ('b','2');
+insert into kv (key, value) values ('c','3');
+

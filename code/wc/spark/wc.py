@@ -1,6 +1,6 @@
 
-# use this command to start with yarn
-# bin/spark-submit --master yarn-cluster wc.py "hdfs://localhost:54310/user/oxclo/books/*"
+
+# ~/spark/bin/spark-submit --master local[*] wc.py "hdfs://localhost:54310/user/oxclo/books/*"
 
 from pyspark import SparkContext, SparkConf
 import sys

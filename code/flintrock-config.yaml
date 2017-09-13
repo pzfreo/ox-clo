@@ -1,0 +1,29 @@
+services:
+  spark:
+    version: 2.1.1
+  hdfs:
+    version: 2.7.3
+
+provider: ec2
+
+providers:
+  ec2:
+    key-name: oxcloXX
+    identity-file: /home/oxclo/keys/oxcloXX.pem
+    instance-type: m3.medium
+    region: eu-west-1
+    ami: ami-d7b9a2b1   # Amazon Linux, eu-west-1
+    user: ec2-user
+    instance-profile-name:
+       ec2-access-s3
+    tenancy: default  # default | dedicated
+    ebs-optimized: no  # yes | no
+    instance-initiated-shutdown-behavior: terminate  # terminate | stop
+
+launch:
+  num-slaves: 2
+  install-hdfs: False
+
+
+
+
