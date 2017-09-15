@@ -1,4 +1,5 @@
 #!/bin/bash 
+set -x
 
 CASSIMG="jnummelin/weave-cassandra:3.0"
 
