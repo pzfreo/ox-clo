@@ -3,7 +3,7 @@ FROM alpine
 
 RUN apk --update add openjdk8 bash && \
     cd /root && \
-	wget -q http://www.mirrorservice.org/sites/ftp.apache.org/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz && \
+	wget -q https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz && \
 	tar zxvf zookeeper-3.4.9.tar.gz && \
 	rm zookeeper-3.4.9.tar.gz && \
 	mv zookeeper-3.4.9 zookeeper && \
