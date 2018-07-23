@@ -1,5 +1,5 @@
 # start from existing ubuntu
-FROM ubuntu:15.10
+FROM ubuntu:18.10
 # update the package list
 RUN apt-get update
 #upgrade
