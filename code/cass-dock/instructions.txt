@@ -1,0 +1,43 @@
+1. ./start-machines.sh oxcloXX
+2. ./start-cassandra.sh oxcloXX
+3. ./login-to-cass-n.sh oxcloXX 1
+
+4. In the docker shell type:
+
+> nodetool status
+
+> cqlsh
+
+Now create a database and populate
+
+CREATE KEYSPACE TEST WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+use test;
+create table kv ( key text, value text, primary key (key));
+insert into kv (key, value) values ('a','1'); 
+insert into kv (key, value) values ('b','2'); 
+insert into kv (key, value) values ('c','3');
+
+
+Now
+
+./cass-n.sh oxcloXX 4
+
+(starts another server).
+
+Wait a minute for replication
+
+From another window
+
+Kill machine 1 (which was the original leader for weave and cassandra):
+
+> docker-machine rm --force oxcloXX-cass-1
+
+Now login to machine 4
+> ./login-to-cass-n.sh oxcloXX 4
+
+See what is running 
+> nodetool status
+
+See if the data is ok
+
+> select * from test.kv;
