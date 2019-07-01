@@ -1,5 +1,5 @@
 sudo yum install gcc gcc-c++ -y
-sudo yum install python2.7-pip
+sudo yum install python27-pip -y
 sudo pip-2.7 install jupyter 
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser'
