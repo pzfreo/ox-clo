@@ -1,0 +1,3 @@
+bin/pyspark \
+    --master k8s://https://localhost:6443 \
+    --conf spark.executor.instances=5 
