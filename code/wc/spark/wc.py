@@ -1,13 +1,12 @@
 
 
-# ~/spark/bin/spark-submit --master local[*] wc.py "hdfs://localhost:54310/user/oxclo/books/*"
+# ~/spark/bin/spark-submit --master local[*] wc.py "file:///home/oxclo/datafiles/books/*"
 
 from pyspark import SparkContext, SparkConf
 import sys
 
 conf = SparkConf().setAppName("wordCount")
 sc = SparkContext(conf=conf)
-
 
 books = sc.textFile(sys.argv[1])
 split = books.flatMap(lambda line: line.split())
