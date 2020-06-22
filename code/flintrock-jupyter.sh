@@ -1,6 +1,5 @@
 sudo yum install gcc gcc-c++ -y
-sudo yum install python27-pip -y
-sudo pip-2.7 install jupyter 
+sudo pip3 install jupyter 
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser'
 pyspark --master spark://0.0.0.0:7077 \
