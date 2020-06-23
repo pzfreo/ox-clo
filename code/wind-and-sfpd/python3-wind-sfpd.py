@@ -28,7 +28,7 @@ def date_and_hour(s):
 
 # start by reading the wind and temperature date
 
-df = spark.read.format('csv').options(header='true').load('/home/oxclo/datafiles/wind2014/*.csv')
+df = sqlc.read.format('csv').options(header='true').load('/home/oxclo/datafiles/wind2014/*.csv')
 
 tidied = df.rdd.map(lambda r: Row(station = r.Station_ID, datehour =date_and_hour(r.Interval_End_Time), temp=r.Ambient_Temperature_Deg_C, wind=r.Wind_Velocity_Mtr_Sec)).toDF()
 
@@ -46,7 +46,7 @@ cleanedaverages.show(10)
 
 # now read the incident data and clean 
 
-idf = spark.read.format('csv').options(header='true').load('/home/oxclo/datafiles/incidents/sfpd.csv')
+idf = sqlc.read.format('csv').options(header='true').load('/home/oxclo/datafiles/incidents/sfpd.csv')
 
 withyx2014 = idf.filter(idf.X.isNotNull()).filter(idf.Y.isNotNull()).filter(idf.Date.contains('2014'))
 
