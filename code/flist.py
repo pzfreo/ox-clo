@@ -1,3 +1,5 @@
+from functools import reduce
+
 class FList(list):
     def __init__(self, *args):
         list.__init__(self, *args)
