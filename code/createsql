@@ -1,3 +1,6 @@
+CREATE DATABASE oxclo;
+USE oxclo;
+
 CREATE TABLE user (    firstname VARCHAR(50),    lastname VARCHAR(50),    age INT,    PRIMARY KEY( firstname, lastname ) );
 
 INSERT INTO user (firstname, lastname, age) VALUES ( "Harry", "Potter", 16);
@@ -7,7 +10,7 @@ INSERT INTO user (firstname, lastname, age) VALUES ( "Mac", "MacGliesh", 87);
 INSERT INTO user (firstname, lastname, age) VALUES ( "Elizabeth", "Wimbledon", 6);
 INSERT INTO user (firstname, lastname, age) VALUES ( "Genevieve", "Deschamps", 51);
 
-create user 'node' identified by 'node';
- grant select on oxclo.user to 'node';
+create user 'node'@'localhost' identified by 'node';
+grant select on oxclo.user to 'node';
  
  
