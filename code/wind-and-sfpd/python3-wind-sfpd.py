@@ -14,7 +14,10 @@ from pyspark.mllib.stat import Statistics
 
 #spark sql setup
 conf = SparkConf().setAppName("wind-sfpd")
+
+#comment out this next line if running in pyspark / jupyter
 sc = SparkContext(conf=conf)
+
 sqlc = SQLContext(sc)
 
 
