@@ -13,8 +13,12 @@ from pyspark.mllib.linalg import Vectors
 from pyspark.mllib.stat import Statistics
 
 #spark sql setup
+
 conf = SparkConf().setAppName("wind-sfpd")
+
+#comment out line below if running in pyspark jupyter notebook
 sc = SparkContext(conf=conf)
+
 sqlc = SQLContext(sc)
 
 
