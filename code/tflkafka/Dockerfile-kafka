@@ -12,5 +12,3 @@ WORKDIR /root/kafka/
 EXPOSE 9092
 
 CMD ["bin/kafka-server-start.sh", "config/server.properties"]
-
-

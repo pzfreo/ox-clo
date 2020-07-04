@@ -1,16 +1,22 @@
 import time
 import httplib2
+import os
 from urllib import urlencode
 import json
 from kafka import KafkaProducer
+
+appid = os.getenv("TFL_APPID")
+appkey = os.getenv("TFL_APPKEY")
+print ("using", appid, appkey)
+
 
 def call_get_arrivals(line):
 
     h = httplib2.Http(disable_ssl_certificate_validation=True)
 #    h.add_credentials(intro_username, intro_password)
-    resp, content = h.request("https://api.tfl.gov.uk/Line/"+line+"/Arrivals")
+    resp, content = h.request("https://api.tfl.gov.uk/Line/"+line+"/Arrivals?app_id="+appid+"&app_key="+appkey)
 
-#    print resp            
+    # print resp            
     try:
        response=json.loads(content)
        for i in response:
@@ -22,7 +28,7 @@ def call_get_arrivals(line):
          timestamp = i['timestamp']
          tts = i['timeToStation']
          data = dict(line=line, trainNumber = trainNumber, stationId = stationId, stationName=stationName, timestamp=timestamp, expArrival = expArrival, tts = tts)
-         #print data
+        #  print data
          producer.send("tfl", json.dumps(data))
     except Exception as inst:
        pass

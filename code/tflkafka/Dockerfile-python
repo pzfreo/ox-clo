@@ -1,8 +1,12 @@
 FROM alpine
-RUN apk --update add python py-pip && \
-	pip install --upgrade pip && \
-	mkdir -p /home/root/python && \
-	pip install kafka && \
+ENV PYTHONUNBUFFERED=1
+
+RUN apk add --no-cache python2 && \
+    python -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip install --upgrade pip setuptools && \
+    rm -r /root/.cache
+RUN pip install kafka && \
 	pip install httplib2 
 	
 COPY tflrepub.py /home/root/python/

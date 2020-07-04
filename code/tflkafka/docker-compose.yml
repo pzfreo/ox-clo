@@ -2,24 +2,27 @@ version: '2'
 
 services:
   zookeeper:
-      build:
+    build:
         context: .
         dockerfile: Dockerfile-zookeeper
-      ports:
-           - "2181:2181"
+    ports:
+    - "2181:2181"
   kafka:
       build: 
-           context: .
-           dockerfile: Dockerfile-kafka
+        context: .
+        dockerfile: Dockerfile-kafka
       ports:
-           - "9092:9092"
+        - "9092:9092"
       networks:
-          default:
-              aliases:
-                  - kafka.freo.me
+        default:
+            aliases:
+                - kafka.freo.me
       depends_on:
-           - zookeeper
-  tfl:
+        - zookeeper
+  python:
+      environment: 
+        - TFL_APPID=${TFL_APPID}
+        - TFL_APPKEY=${TFL_APPKEY}
       depends_on:
           - kafka
       build: 
