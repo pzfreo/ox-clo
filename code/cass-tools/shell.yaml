@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: casstool
+spec:
+  containers:
+  - name: ubuntu
+    image: pzfreo/casstools
+  hostNetwork: true
+  dnsPolicy: Default
