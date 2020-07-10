@@ -1,0 +1,97 @@
+/* this input stream is defined in the Java code so don't mess with it */
+
+@config(async = 'true') 
+define stream tflstream (line string, stationid string, stationname string, trainnumber int, expected long, tts long);
+
+/*
+@info(name = 'simplelogquery') 
+from tflstream#window.time(1 sec) 
+select * 
+insert into outstream;
+*/
+/* PHASE 1 - Comment out the previous query and uncomment the next query */
+
+/*
+@info(name = 'trainsinnext30') 
+from tflstream#window.time(20 sec)
+select trainnumber, stationname, stationid, line, expected, tts 
+	having tts <= 30 insert into outstream;
+*/
+
+
+/* PHASE 2 - comment previous and uncomment following */
+/*
+@info(name = 'nexttrains') 
+from tflstream#window.time(20 sec)
+select str:concat(line, ":", convert(trainnumber, 'string')) as train, line, trainnumber, stationname, stationid, expected, tts, min(expected) as minexp
+	group by trainnumber, line
+	having expected == minexp
+	output last every 20 sec
+	insert into outstream;
+
+*/
+/* PHASE 3  - comment previous and uncomment following */
+
+
+@info(name = 'nexttrains') 
+from tflstream#window.time(20 sec)
+select str:concat(line, ":", convert(trainnumber, 'string')) as train, line, trainnumber, stationname, stationid, expected, tts, min(expected) as minexp
+	group by trainnumber, line
+	having expected == minexp
+	output last every 20 sec
+	insert into nextstation;
+
+
+
+partition with (train of nextstation) 
+begin
+	@info(name = 'latetrains') 
+
+	from every e1=nextstation, e2=nextstation[e1.expected + 30 <= expected] 
+							
+	select ( e2.expected - e1.expected) as delay,
+			e2.line as line,
+	 		e2.train as train, 
+			e2.tts as tts,
+			e2.stationname as stationname
+	having e1.stationid == e2.stationid
+	insert into outstream;
+	
+end;
+
+
+/* PHASE 4 - Aggregation - comment previous and uncomment following */
+/*
+define stream outstream(delay long, line string, train string, tts long, stationname string );
+
+define aggregation LateAggregation
+from outstream
+select line, count(train) as count, avg(delay) as avgDelay, sum(delay) as totalDelay
+	group by line
+	aggregate every min ... hour;
+
+@info(name = 'nexttrains') 
+from tflstream#window.time(20 sec)
+select str:concat(line, ":", convert(trainnumber, 'string')) as train, line, trainnumber, stationname, stationid, expected, tts, min(expected) as minexp
+	group by trainnumber, line
+	having expected == minexp
+	output last every 20 sec
+	insert into nextstation;
+
+partition with (train of nextstation) 
+begin
+	@info(name = 'latetrains') 
+
+	from every e1=nextstation, e2=nextstation[e1.expected + 30 <= expected] 
+							
+	select ( e2.expected - e1.expected) as delay,
+			e2.line as line,
+	 		e2.train as train, 
+			e2.tts as tts,
+			e2.stationname as stationname
+	having e1.stationid == e2.stationid
+	insert into outstream;
+	
+end;
+
+*/
