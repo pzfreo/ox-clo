@@ -10,7 +10,7 @@ INSERT INTO user (firstname, lastname, age) VALUES ( "Mac", "MacGliesh", 87);
 INSERT INTO user (firstname, lastname, age) VALUES ( "Elizabeth", "Wimbledon", 6);
 INSERT INTO user (firstname, lastname, age) VALUES ( "Genevieve", "Deschamps", 51);
 
-create user 'node'@'localhost' identified by 'node';
+create user 'node'@'%' identified by 'node';
 grant select on oxclo.user to 'node';
  
  

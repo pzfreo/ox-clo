@@ -1,8 +1,8 @@
 services:
   spark:
-    version: 3.0.0
+    version: 3.1.2
   hdfs:
-    version: 2.7.3
+    version: 3.2.0
 
 provider: ec2
 
@@ -12,7 +12,7 @@ providers:
     identity-file: /home/oxclo/keys/oxclo01.pem
     instance-type: m3.large
     region: eu-west-1
-    ami: ami-0ea3405d2d2522162   # Amazon Linux 2, eu-west-1
+    ami: ami-058b1b7fe545997ae   # Amazon Linux 2, eu-west-1
     user: ec2-user
     instance-profile-name: ec2-access-s3
 
